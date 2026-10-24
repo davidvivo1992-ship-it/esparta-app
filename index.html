@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Metabolisme Espartà</title>
+<meta name="theme-color" content="#0D0D0F">
+<link rel="apple-touch-icon" href="./icona-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Espartà">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Espartà">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icona-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:#0D0D0F;color:#F2EFE9;font-family:'Barlow',system-ui,sans-serif;
+       -webkit-font-smoothing:antialiased;overscroll-behavior-y:contain}
+  input,select,textarea,button{font-family:'Barlow',sans-serif}
+  input:focus,textarea:focus{outline:none;border-color:#B8860B}
+  input[type=number]{-moz-appearance:textfield}
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  button:disabled{opacity:.55}
+  a{color:#C0392B}
+  a:hover{color:#B8860B}
+  ::selection{background:#9B1B1B;color:#F2EFE9}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="./js/core.js?v=20"></script>
+<script src="./js/offline.js?v=20"></script>
+<script src="./js/shell.js?v=20"></script>
+<script src="./js/cronometre.js?v=20"></script>
+<script src="./js/avui.js?v=20"></script>
+<script src="./js/agenda.js?v=20"></script>
+<script src="./js/nutricio.js?v=20"></script>
+<script src="./js/progres.js?v=20"></script>
+<script src="./js/missatges.js?v=20"></script>
+<script src="./js/avisos.js?v=20"></script>
+<script src="./js/perfil.js?v=20"></script>
+<script>
+  window.ESPARTA.arrenca();
+  if ('serviceWorker' in navigator)
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('./sw.js').catch(function(){});
+    });
+</script>
+</body>
+</html>
