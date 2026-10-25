@@ -98,7 +98,7 @@ E.seccions.push({
 
     // Serveix per saber si el mobil ja té l'última versió
     cos.appendChild(h('div','margin-top:14px;font-size:10.5px;color:'+C.apagat+';'+
-      'text-align:center;letter-spacing:.1em','VERSIÓ 20'));
+      'text-align:center;letter-spacing:.1em','VERSIÓ 21'));
 
     cont.appendChild(cos);
   }

@@ -56,6 +56,54 @@ function acces(msg){
   c.appendChild(b);
   p.control.onkeydown = function(ev){ if (ev.key === 'Enter') b.click(); };
 
+  // Entrar amb Google. Nomes surt si el projecte el te activat: aixi el
+  // dia que s'engegui a Supabase apareix sol, sense desplegar res.
+  var zonaGoogle = h('div');
+  c.appendChild(zonaGoogle);
+  E.miraProveidors().then(function(pr){
+    if (!pr.google) return;
+    var sep = h('div','display:flex;align-items:center;gap:12px;margin:18px 0 14px');
+    sep.appendChild(h('div','flex:1;height:1px;background:'+C.voraFort));
+    sep.appendChild(h('div','font-size:11px;letter-spacing:.14em;text-transform:uppercase;'+
+      'color:'+C.apagat+';font-weight:700','o'));
+    sep.appendChild(h('div','flex:1;height:1px;background:'+C.voraFort));
+    zonaGoogle.appendChild(sep);
+
+    var bg = E.boto('Entrar amb Google', function(){
+      bg.disabled = true; bg.textContent = 'Obrint Google\u2026';
+      E.sb.auth.signInWithOAuth({
+        provider:'google',
+        options:{
+          redirectTo: E.URL_ATLETA,
+          // Que ensenyi sempre el selector de compte: aqui gairebe tothom
+          // te mes d'un gmail, i entrar amb el que no toca es justament
+          // el que ens ha costat dues setmanes de maldecaps.
+          queryParams:{ prompt:'select_account' }
+        }
+      }).then(function(r){
+        if (r && r.error){
+          bg.disabled = false;
+          E.buida(bg); bg.appendChild(E.logoGoogle(18));
+          bg.appendChild(h('span',null,'Entrar amb Google'));
+          acces(E.diuError(r.error));
+        }
+      }).catch(function(err){ acces(E.diuError(err)); });
+    }, 'buit');
+    bg.style.width = '100%';
+    bg.style.display = 'flex';
+    bg.style.alignItems = 'center';
+    bg.style.justifyContent = 'center';
+    bg.style.gap = '10px';
+    E.buida(bg);
+    bg.appendChild(E.logoGoogle(18));
+    bg.appendChild(h('span',null,'Entrar amb Google'));
+    zonaGoogle.appendChild(bg);
+
+    zonaGoogle.appendChild(h('div','margin-top:10px;font-size:11.5px;color:'+C.apagat+';'+
+      'line-height:1.5;text-align:center',
+      'Fes-ho amb el mateix correu que et va donar el teu entrenador.'));
+  });
+
   var o = h('div','margin-top:16px;text-align:center');
   var a = document.createElement('a');
   a.textContent = 'He oblidat la contrasenya';
@@ -290,9 +338,9 @@ function arrenca(){
 
   var hash = location.hash || '';
   if (hash.indexOf('error') !== -1){
+    var queHaPassat = E.errorDeLadreca(hash);
     history.replaceState(null, '', location.pathname);
-    return acces("L'enllaç del correu ja no serveix: ha caducat o ja s'ha fet servir. "
-      + "Demana'n un de nou amb «He oblidat la contrasenya».");
+    return acces(queHaPassat);
   }
   E.sb.auth.onAuthStateChange(function(event){
     if (event === 'PASSWORD_RECOVERY') novaContrasenya();

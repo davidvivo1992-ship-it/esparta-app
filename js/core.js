@@ -198,6 +198,63 @@ E.mesuraPeca = function(p){
   return (p.reps || '\u2014') + ' reps';
 };
 
+// Quins sistemes d'entrada te oberts el projecte. Es pregunta a Supabase
+// perque el boto de Google aparegui tot sol el dia que s'activi, sense
+// haver de tornar a desplegar l'app.
+E.proveidors = { google:false };
+E.miraProveidors = function(){
+  if (E.proveidorsDemanats) return E.proveidorsDemanats;
+  E.proveidorsDemanats = fetch(E.FIX.url + '/auth/v1/settings',
+      { headers:{ apikey: E.FIX.key } })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      E.proveidors.google = !!(d && d.external && d.external.google);
+      return E.proveidors;
+    })
+    .catch(function(){ return E.proveidors; });
+  return E.proveidorsDemanats;
+};
+
+// La G de Google, amb els seus colors. Es l'unica cosa de tota l'app que
+// no segueix la paleta: la marca d'un tercer no es repinta.
+E.logoGoogle = function(mida){
+  mida = mida || 18;
+  var s = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 48 48');
+  s.setAttribute('width', mida); s.setAttribute('height', mida);
+  s.setAttribute('style','display:block;flex-shrink:0');
+  [['#EA4335','M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'],
+   ['#4285F4','M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'],
+   ['#FBBC05','M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z'],
+   ['#34A853','M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z']
+  ].forEach(function(p){
+    var n = document.createElementNS('http://www.w3.org/2000/svg','path');
+    n.setAttribute('fill', p[0]); n.setAttribute('d', p[1]);
+    s.appendChild(n);
+  });
+  return s;
+};
+
+// Que ens ha dit Google o Supabase quan torna amb un error a l'adreca.
+E.errorDeLadreca = function(hash){
+  var p = new URLSearchParams(String(hash || '').replace(/^#/, ''));
+  var codi = p.get('error_code') || '';
+  var mena = p.get('error') || '';
+  var detall = (p.get('error_description') || '').replace(/\+/g, ' ');
+  if (!p.get('error') && !codi) return null;
+  if (codi === 'signup_disabled' || /signups? not allowed/i.test(detall))
+    return "Aquest compte de Google no està donat d'alta a Metabolisme Espartà. "
+         + "Demana-li al teu entrenador que et doni d'alta amb aquest mateix correu.";
+  if (codi === 'otp_expired' || /link is invalid|expired/i.test(detall))
+    return "L'enllaç del correu ja no serveix: ha caducat o ja s'ha fet servir. "
+         + "Demana'n un de nou amb \u00abHe oblidat la contrasenya\u00bb.";
+  if (codi === 'access_denied' || mena === 'access_denied')
+    return 'Has cancel\u00b7lat l\'entrada amb Google.';
+  return detall
+    ? "No s'ha pogut completar l'entrada amb Google: " + detall
+    : "No s'ha pogut completar l'entrada.";
+};
+
 E.titol = function(text, mida){
   return E.h('div',"font-family:'Cinzel',serif;font-weight:700;font-size:"+(mida||19)+'px;'+
     'color:'+E.C.os+';letter-spacing:.02em', text);
