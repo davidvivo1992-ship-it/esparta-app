@@ -278,9 +278,10 @@ function activitats(zona, D, dia){
 }
 
 function vesAEntreno(D, dia, tipus){
-  if (dia !== E.diaSetmana() && E.jaEntrenatAvui(D)){
-    avis = 'Avui ja has entrenat. Un entrenament al dia: demà podràs fer '+
-      'el de ' + E.DIES[dia-1].toLowerCase() + '.';
+  // La regla la decideix avui.js: aqui nomes es pinta el motiu a l'Agenda.
+  var m = E.motiuNoObrir(D, dia);
+  if (m){
+    avis = m;
     E.repinta();
     return;
   }

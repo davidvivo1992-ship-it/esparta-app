@@ -233,12 +233,45 @@ function acabat(D, dia){
   var l = localDelDia(dia);
   return !!(l && l.tancada);
 }
+// Haver entrenat vol dir haver ACABAT. Una sessio comencada i no tancada no
+// compta: si comptava, qui sortia un moment del navegador a mig entreno hi
+// tornava i es trobava el dia bloquejat fins l'endema.
 function jaEntrenatAvui(D){
-  if (sessioAvui(D) || cardioAvui(D)) return true;
+  var s = sessioAvui(D);
+  if (s && s.estat === 'completada') return true;
+  if (cardioAvui(D)) return true;
   var l = E.llegeixCau('series');
-  if (l && l.data === E.avui() && (l.tancada || Object.keys(l.fetes || {}).length)) return true;
+  if (l && l.data === E.avui() && l.tancada) return true;
   var c = E.llegeixCau('cardio');
   return !!(c && c.data === E.avui());
+}
+// La sessio que s'ha obert avui, acabada o no, vingui del servidor o del cau
+function sessioDAvui(D){
+  var s = sessioAvui(D);
+  if (s) return s;
+  var l = E.llegeixCau('series');
+  if (l && l.data === E.avui() && (l.tancada || Object.keys(l.fetes || {}).length))
+    return { data:E.avui(), dia_previst:l.dia,
+             estat: l.tancada ? 'completada' : 'en_curs' };
+  return null;
+}
+// Per que no es pot obrir aquest dia, si es que no es pot. null vol dir endavant.
+// Ho comparteixen la pantalla d'avui i l'Agenda, que abans ho decidien cadascuna
+// pel seu compte i amb el mateix error.
+function motiuNoObrir(D, dia){
+  var s = sessioDAvui(D);
+  // La sessio d'avui sempre es pot tornar a obrir, sigui del dia que sigui:
+  // es la que t'ha dut fins aqui. A mig fer, per continuar-la; acabada, per
+  // veure-la.
+  if (s && diaDe(s) === dia) return null;
+  if (dia === E.diaSetmana()) return null;
+  if (jaEntrenatAvui(D))
+    return 'Avui ja has entrenat. Un entrenament al dia: demà podràs fer '+
+      'el de ' + E.DIES[dia-1].toLowerCase() + '.';
+  if (s)
+    return 'Tens l\'entreno de ' + E.DIES[diaDe(s)-1].toLowerCase() +
+      ' començat. Acaba\'l abans de fer-ne un altre.';
+  return null;
 }
 
 // ── Panell ─────────────────────────────────────────────────────────
@@ -378,13 +411,12 @@ function fitxaDescans(){
   return t;
 }
 
-// Un entrenament al dia: si avui ja s'ha entrenat, no se n'obre un altre.
+// Un entrenament al dia: si avui ja s'ha ACABAT un entreno, no se n'obre un
+// altre. El que s'ha comencat i no s'ha tancat, en canvi, sempre es repren.
 function obreDia(D, dia, tipus){
-  var avui = E.diaSetmana();
-  // Fer avui l'entreno d'un altre dia: nomes un al dia
-  if (dia !== avui && jaEntrenatAvui(D)){
-    missatge = 'Avui ja has entrenat. Un entrenament al dia: demà podràs fer '+
-      'el de ' + E.DIES[dia-1].toLowerCase() + '.';
+  var m = motiuNoObrir(D, dia);
+  if (m){
+    missatge = m;
     E.repinta();
     return;
   }
@@ -1024,6 +1056,7 @@ function pintaFinal(cont, ex, X, ses){
 // Ho fa servir l'Agenda
 E.obreDia = obreDia;
 E.jaEntrenatAvui = jaEntrenatAvui;
+E.motiuNoObrir = motiuNoObrir;
 E.acabatDia = acabat;
 
 })();

@@ -1,14 +1,14 @@
 // Metabolisme Esparta · service worker
 // Nomes cacheja l'embolcall de l'aplicacio. Les dades sempre van a la xarxa:
 // una fitxa de salut antiga es pitjor que cap fitxa.
-var CACHE = 'esparta-v21';
+var CACHE = 'esparta-v22';
 var FITXERS = [
   './', './index.html', './manifest.json', './logo.png',
-  './js/core.js?v=21', './js/offline.js?v=21',
-  './js/shell.js?v=21', './js/cronometre.js?v=21', './js/avui.js?v=21',
-  './js/agenda.js?v=21', './js/nutricio.js?v=21',
-  './js/progres.js?v=21', './js/missatges.js?v=21', './js/avisos.js?v=21',
-  './js/perfil.js?v=21'
+  './js/core.js?v=22', './js/offline.js?v=22',
+  './js/shell.js?v=22', './js/cronometre.js?v=22', './js/avui.js?v=22',
+  './js/agenda.js?v=22', './js/nutricio.js?v=22',
+  './js/progres.js?v=22', './js/missatges.js?v=22', './js/avisos.js?v=22',
+  './js/perfil.js?v=22'
 ];
 // La llibreria de connexio ve d'un CDN: es cacheja a part, perque si falla
 // no ha de tombar la instal·lacio sencera del service worker.
