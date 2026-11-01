@@ -316,7 +316,7 @@ function marc(){
   var t = h('div','background:'+C.panell+';border:1px solid '+C.vora+';'+
     'border-top:3px solid '+C.accio+';padding:19px 20px');
   t.appendChild(h('div','font-size:10px;letter-spacing:.16em;text-transform:uppercase;'+
-    'font-weight:700;color:'+C.accio+';margin-bottom:10px','Avui'));
+    'font-weight:700;color:'+C.brasa+';margin-bottom:10px','Avui'));
   return t;
 }
 

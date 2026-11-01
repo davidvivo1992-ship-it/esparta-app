@@ -6,7 +6,8 @@ var E = window.ESPARTA = {
     fons:'#0D0D0F', panell:'#16161A', panell2:'#1F2024',
     vora:'rgba(194,176,106,.16)', voraFort:'rgba(194,176,106,.4)',
     or:'#C2B06A', bronze:'#B08A5A', os:'#EAE7E1', pedra:'#A9A49B', apagat:'#8A8E95',
-    carmesi:'#7A0F14', accio:'#A8231B', oliva:'#8FA04A', ambre:'#C99A2E'
+    carmesi:'#7A0F14', accio:'#A8231B', brasa:'#E0533C',
+    oliva:'#8FA04A', ambre:'#C99A2E'
   }
 };
 
