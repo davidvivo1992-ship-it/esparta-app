@@ -16,13 +16,18 @@
 <link rel="apple-touch-icon" href="./icona-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{margin:0;background:#0D0D0F;color:#F2EFE9;font-family:'Barlow',system-ui,sans-serif;
+  /* La lletra d'interficie del book visual. Els controls de formulari no
+     l'hereten mai, i a dins del JS hi ha inline styles que la tornen a
+     declarar: tots fan servir aquesta variable, aixi que canviar de lletra
+     es tocar nomes aquesta linia. */
+  :root{--lletra:'Montserrat',system-ui,sans-serif}
+  body{margin:0;background:#0D0D0F;color:#F2EFE9;font-family:var(--lletra);
        -webkit-font-smoothing:antialiased;overscroll-behavior-y:contain}
-  input,select,textarea,button{font-family:'Barlow',sans-serif}
+  input,select,textarea,button{font-family:var(--lletra)}
   input:focus,textarea:focus{outline:none;border-color:#B8860B}
   input[type=number]{-moz-appearance:textfield}
   input[type=number]::-webkit-outer-spin-button,
@@ -37,17 +42,17 @@
 <div id="root"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="./js/core.js?v=23"></script>
-<script src="./js/offline.js?v=23"></script>
-<script src="./js/shell.js?v=23"></script>
-<script src="./js/cronometre.js?v=23"></script>
-<script src="./js/avui.js?v=23"></script>
-<script src="./js/agenda.js?v=23"></script>
-<script src="./js/nutricio.js?v=23"></script>
-<script src="./js/progres.js?v=23"></script>
-<script src="./js/missatges.js?v=23"></script>
-<script src="./js/avisos.js?v=23"></script>
-<script src="./js/perfil.js?v=23"></script>
+<script src="./js/core.js?v=24"></script>
+<script src="./js/offline.js?v=24"></script>
+<script src="./js/shell.js?v=24"></script>
+<script src="./js/cronometre.js?v=24"></script>
+<script src="./js/avui.js?v=24"></script>
+<script src="./js/agenda.js?v=24"></script>
+<script src="./js/nutricio.js?v=24"></script>
+<script src="./js/progres.js?v=24"></script>
+<script src="./js/missatges.js?v=24"></script>
+<script src="./js/avisos.js?v=24"></script>
+<script src="./js/perfil.js?v=24"></script>
 <script>
   window.ESPARTA.arrenca();
   if ('serviceWorker' in navigator)

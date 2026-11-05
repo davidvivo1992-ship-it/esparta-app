@@ -131,7 +131,7 @@ function compositor(){
   ta.placeholder = 'Escriu al teu equip…';
   ta.setAttribute('style','width:100%;padding:13px;background:'+C.panell+';'+
     'border:1px solid rgba(194,176,106,.24);color:'+C.os+';font-size:16px;'+
-    "font-family:'Barlow',sans-serif;resize:vertical");
+    "font-family:var(--lletra);resize:vertical");
   ta.oninput = function(){ esborrany = ta.value; };
   box.appendChild(ta);
 

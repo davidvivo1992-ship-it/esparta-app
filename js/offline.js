@@ -213,7 +213,7 @@ E.mostraEstat = function(){
   var fora = !navigator.onLine;
   b.setAttribute('style','position:fixed;left:0;right:0;top:0;z-index:60;'+
     'padding:9px 14px;text-align:center;font-size:12px;font-weight:700;'+
-    "letter-spacing:.04em;font-family:'Barlow',sans-serif;color:#0D0D0F;"+
+    "letter-spacing:.04em;font-family:var(--lletra);color:#0D0D0F;"+
     'background:'+(fora ? E.C.ambre : E.C.oliva));
   b.textContent = fora
     ? (n ? 'Sense connexió · ' + n + (n === 1 ? ' registre desat al mòbil'

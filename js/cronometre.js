@@ -98,7 +98,7 @@ E.cronoCardio = function(rc, peces, onAcabat){
   bSurt.textContent = 'Sortir';
   bSurt.setAttribute('style','background:transparent;border:1px solid '+C.vora+';'+
     'color:'+C.pedra+';padding:9px 15px;min-height:44px;font-size:12px;cursor:pointer;'+
-    "font-family:'Barlow',sans-serif");
+    "font-family:var(--lletra)");
   bSurt.onclick = function(){ tanca(true); };
   dalt.appendChild(bSurt);
   w.appendChild(dalt);

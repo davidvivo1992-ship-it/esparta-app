@@ -671,7 +671,7 @@ function planCardio(rc, peces, quanAcabi){
         bg.textContent = 'Veure les ' + imgs.length + ' imatges';
         bg.setAttribute('style','font-size:12px;color:'+C.pedra+';background:transparent;'+
           'border:1px solid '+C.vora+';padding:8px 12px;min-height:36px;cursor:pointer;'+
-          "font-family:'Barlow',sans-serif");
+          "font-family:var(--lletra)");
         var tira = h('div','display:none;gap:7px;margin-top:8px;overflow-x:auto;padding-bottom:4px');
         imgs.forEach(function(cami){
           var m = document.createElement('img');
@@ -882,7 +882,7 @@ function pintaExercicis(llista, ex, X){
         [iR,iP].forEach(function(x){
           x.setAttribute('style','flex:1;min-width:0;min-height:46px;padding:11px;'+
             'background:'+C.fons+';border:1px solid '+(reg ? C.oliva+'55' : 'rgba(194,176,106,.24)')+';'+
-            "color:"+C.os+";font-size:16px;font-family:'Barlow',sans-serif;text-align:center");
+            "color:"+C.os+";font-size:16px;font-family:var(--lletra);text-align:center");
           x.onfocus = function(){ x.select(); };
         });
         f.appendChild(iR); f.appendChild(iP);
@@ -891,7 +891,7 @@ function pintaExercicis(llista, ex, X){
         b.textContent = reg ? '\u2713' : 'OK';
         b.setAttribute('style','width:52px;min-height:46px;flex-shrink:0;background:'+
           (reg ? C.oliva : C.accio)+';border:none;color:'+(reg ? '#0D0D0F' : '#fff')+';'+
-          "font-size:14px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;"+
+          "font-size:14px;font-weight:700;cursor:pointer;font-family:var(--lletra);"+
           '-webkit-tap-highlight-color:transparent');
         b.onclick = function(){
           if (!iR.value && !iP.value) return;
@@ -984,7 +984,7 @@ function pintaFinal(cont, ex, X, ses){
     b.textContent = String(v);
     b.setAttribute('style','min-height:46px;background:transparent;border:1px solid '+C.vora+';'+
       'color:'+C.pedra+";font-size:15px;font-weight:600;cursor:pointer;"+
-      "font-family:'Barlow',sans-serif;-webkit-tap-highlight-color:transparent");
+      "font-family:var(--lletra);-webkit-tap-highlight-color:transparent");
     b.onclick = function(){
       rpe.v = v;
       var tots = gr.querySelectorAll('button');

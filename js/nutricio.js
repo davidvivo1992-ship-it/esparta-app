@@ -413,7 +413,7 @@ function pintaSetmana(cos, apats, grups, tria, mapa, pla){
     b.setAttribute('style','min-height:58px;background:' + (sel ? C.panell2 : 'transparent') +
       ';border:1px solid ' + (sel ? C.or : C.vora) + ';cursor:pointer;display:flex;' +
       'flex-direction:column;align-items:center;justify-content:center;gap:3px;' +
-      "padding:6px 2px;font-family:'Barlow',sans-serif;" +
+      "padding:6px 2px;font-family:var(--lletra);" +
       '-webkit-tap-highlight-color:transparent');
     b.appendChild(h('div','font-size:10.5px;font-weight:700;letter-spacing:.04em;' +
       'color:' + (sel ? C.os : C.apagat), E.DIES[dia-1].slice(0,2).toUpperCase()));

@@ -85,7 +85,7 @@ E.camp = function(opts){
   if (opts.marca) i.placeholder = opts.marca;
   i.setAttribute('style','width:100%;padding:14px;background:'+E.C.fons+';'+
     'border:1px solid rgba(194,176,106,.24);color:'+E.C.os+';font-size:16px;'+
-    "font-family:'Barlow',sans-serif;border-radius:0");
+    "font-family:var(--lletra);border-radius:0");
   w.appendChild(i);
   w.control = i;
   return w;
@@ -97,7 +97,7 @@ E.boto = function(text, accio, mena){
   b.textContent = text;
   var base = 'min-height:48px;padding:14px 22px;font-size:14px;font-weight:700;'+
     "letter-spacing:.07em;text-transform:uppercase;cursor:pointer;"+
-    "font-family:'Barlow',sans-serif;border-radius:0;-webkit-tap-highlight-color:transparent;";
+    "font-family:var(--lletra);border-radius:0;-webkit-tap-highlight-color:transparent;";
   if (mena === 'buit') b.setAttribute('style', base+'background:transparent;'+
     'border:1px solid rgba(194,176,106,.32);color:'+E.C.pedra);
   else b.setAttribute('style', base+'background:linear-gradient(180deg,'+E.C.accio+
